@@ -8,6 +8,7 @@ from data import *
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.password_recowery_page import PasswordRecoweryPage
+from pages.personal_account_page import PersonalAccount
 
 @pytest.fixture(params=['chrome', 'firefox'])
 def driver(request):
@@ -42,3 +43,22 @@ def login_page(driver):
 def password_recowery_page(driver):
     password_recowery_page = PasswordRecoweryPage(driver)
     return password_recowery_page
+
+@pytest.fixture
+def personal_account_page(driver):
+    personal_account_page = PersonalAccount(driver)
+    return personal_account_page
+
+@pytest.fixture
+def authorized_user():
+    email = FakeData.email()
+    password = FakeData.password()
+    name = FakeData.name()
+    user_body = Body.build_user_body(email, password, name)
+    Request.create_user(user_body)
+    login_pass_body = Body.build_login_pass_body(email, password)
+    response = Request.login_user(login_pass_body)
+    token = response.json()['accessToken']
+    UserData = namedtuple('UserData', ['email', 'password', 'name', 'token'])
+    yield UserData(email, password, name, token)
+    Request.delete_user(token)
