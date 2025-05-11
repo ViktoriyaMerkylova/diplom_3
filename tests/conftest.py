@@ -9,6 +9,7 @@ from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.password_recowery_page import PasswordRecoweryPage
 from pages.personal_account_page import PersonalAccount
+from pages.order_feed_page import OrderFeedPage
 
 @pytest.fixture(params=['chrome', 'firefox'])
 def driver(request):
@@ -62,3 +63,9 @@ def authorized_user():
     UserData = namedtuple('UserData', ['email', 'password', 'name', 'token'])
     yield UserData(email, password, name, token)
     Request.delete_user(token)
+
+@pytest.fixture
+def order_feed_page(driver):
+    order_feed_page = OrderFeedPage(driver)
+    return order_feed_page
+

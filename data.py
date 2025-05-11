@@ -14,6 +14,10 @@ REGISTER = f"{BASE_URL}/api/auth/register"
 LOGIN_API = f"{BASE_URL}/api/auth/login"
 USER = f"{BASE_URL}/api/auth/user"
 
+BURGER = "Соберите бургер"
+ORDER = "Лента заказов"
+
+
 class FakeData:
     @staticmethod
     def email():
@@ -62,3 +66,5 @@ class Request:
     def delete_user(token):
         return requests.delete(f'{USER}',
                                headers={'Authorization': token})
+
+
