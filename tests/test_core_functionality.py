@@ -17,3 +17,10 @@ class TestCoreFunctionality:
         main_page.click_list_order_button()
         assert order_feed_page.get_list_orders_header_text() == ORDER
 
+
+    @allure.title('Если кликнуть на ингридиент, появится всплывающее окно с деталями')
+    def test_details_ingredient(self, driver, main_page):
+        main_page.wait_main_page()
+        main_page.click_ingredient_bun()
+        assert main_page.check_open_popup_with_details_ingredient_bun()
+
