@@ -24,3 +24,11 @@ class TestCoreFunctionality:
         main_page.click_ingredient_bun()
         assert main_page.check_open_popup_with_details_ingredient_bun()
 
+    @allure.title('Всплывающее окно закрывается кликом по крестику')
+    def test_close_details_ingredient(self, driver, main_page):
+        main_page.wait_main_page()
+        main_page.click_ingredient_bun()
+        main_page.close_popup_with_ingredient_details()
+        assert main_page.check_not_displaying_of_popup_details_ingredient()
+
+
